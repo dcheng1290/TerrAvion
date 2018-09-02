@@ -37,12 +37,24 @@ body {
   border: 1px solid;
   margin-right: 5px;
   font-size: 15px;
-  background: orange;
 }
 
 .dataInfo {
   width: 1140px;
   position: absolute;
   z-index: 9999;
-  bottom: 20px;
+  bottom: 40px;
+}
+
+.paginate {
+  bottom: 5px;
+  position: absolute;
+  z-index: 9999;
+  text-align: center;
+  left: 388px;
+}
+
+.pagination {
+  margin: 0;
+  display: block;
 }
