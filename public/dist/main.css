@@ -58,3 +58,7 @@ body {
   margin: 0;
   display: block;
 }
+
+button:hover {
+  background: #AEDECF;
+}

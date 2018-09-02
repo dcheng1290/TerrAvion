@@ -15,7 +15,7 @@ class Maps extends Component {
     super(props);
     this.state = {
       data: [],
-      mapCenter: [38.54058, -121.877271],
+      mapCenter: [38.54258, -121.877271],
       zoomLevel: 15,
       epochStart: '',
       epochEnd: '',
@@ -29,7 +29,6 @@ class Maps extends Component {
     this.fetchLayers(1);
   }
 
-  /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
   fetchLayers(pageNumber) {
     const [start, end] = [(pageNumber - 1) * 10, pageNumber * 10];
 
@@ -45,8 +44,7 @@ class Maps extends Component {
           epochEnd: dataInfo[start].layerDateEpoch + oneDayEpoch,
           data: [...dataInfo.slice(start, end)],
         });
-      })
-      .catch(err => console.warn(err));
+      });
   }
 
   updateEpoch(layerDateEpoch) {
@@ -72,14 +70,14 @@ class Maps extends Component {
       <div className="container">
         <Map ref={this.map} center={mapCenter} zoom={zoomLevel}>
           <LayersControl position="topright">
-            <BaseLayer checked name="test">
+            <BaseLayer checked name="BaseLayer">
               <TileLayer
                 url={
                   'https://api.tiles.mapbox.com/v2/cgwright.ca5740e5/{z}/{x}/{y}.jpg'
                 }
               />
             </BaseLayer>
-            <Overlay checked name="test1">
+            <Overlay checked name="OverLay">
               <TileLayer
                 attribution="TerrAvion"
                 url={tileUrlTemplate}
