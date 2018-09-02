@@ -21,13 +21,3 @@ const Data = ({ data, handleClick }) => (
 );
 
 export default Data;
-
-// {
-//   props.events.map(event => (
-//     <tr key={event.date + event.description}>
-//       <td>{event.date}</td>
-//       <td>{event.description}</td>
-//       <td>{event.category2}</td>
-//     </tr>
-//   ));
-// }
