@@ -8,6 +8,7 @@ class Pagination extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  // get clicked page number and update page number
   handleClick(data) {
     const { selected } = data;
     const { fetchLayers } = this.props;

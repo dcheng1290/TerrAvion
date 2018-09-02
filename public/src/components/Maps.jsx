@@ -26,9 +26,11 @@ class Maps extends Component {
   }
 
   componentDidMount() {
+    // start the app by fetching data and with page number 1
     this.fetchLayers(1);
   }
 
+  // GET API call
   fetchLayers(pageNumber) {
     const [start, end] = [(pageNumber - 1) * 10, pageNumber * 10];
 
@@ -38,6 +40,7 @@ class Maps extends Component {
       )
       .then(response => {
         const dataInfo = response.data.reverse();
+
         this.setState({
           pageCount: dataInfo.length / 10,
           epochStart: dataInfo[start].layerDateEpoch - oneDayEpoch,
@@ -47,6 +50,7 @@ class Maps extends Component {
       });
   }
 
+  // updates the epoch start and end time when clicked on a new date
   updateEpoch(layerDateEpoch) {
     this.setState({
       epochStart: layerDateEpoch - oneDayEpoch,
