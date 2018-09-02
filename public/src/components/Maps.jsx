@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, LayersControl } from 'react-leaflet';
 import axios from 'axios';
-import moment from 'moment';
+import { apiUrl, accessToken, userId } from '../../config/dev';
 import Data from './Data';
 
 const { Overlay, BaseLayer } = LayersControl;
 
-const apiUrl = 'https://api2.terravion.com';
-const accessToken = '2e68cee0-b2fd-4ef5-97f6-8e44afb09ffa';
-const userId = '5bad4dfa-7262-4a0a-b1e5-da30793cec65';
-const zoomLevel = 15;
 const oneDayEpoch = 24 * 60 * 60;
 
 class Maps extends Component {
@@ -18,19 +14,19 @@ class Maps extends Component {
     this.state = {
       data: [],
       mapCenter: [38.54058, -121.877271],
+      zoomLevel: 15,
       epochStart: '',
       epochEnd: '',
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleSecond = this.handleSecond.bind(this);
+    this.updateEpoch = this.updateEpoch.bind(this);
   }
 
   componentDidMount() {
-    this.test();
+    this.fetchLayers();
   }
 
   /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-  test() {
+  fetchLayers() {
     const { data } = this.state;
     axios
       .get(
@@ -39,32 +35,25 @@ class Maps extends Component {
       .then(response => {
         const dataInfo = response.data.reverse();
         this.setState({
-          epochStart: dataInfo[0].layerDateEpoch - 24000,
-          epochEnd: dataInfo[0].layerDateEpoch + 24000,
+          epochStart: dataInfo[0].layerDateEpoch - oneDayEpoch,
+          epochEnd: dataInfo[0].layerDateEpoch + oneDayEpoch,
           data: [...data, ...dataInfo.splice(0, 10)],
         });
       })
       .catch(err => console.warn(err));
   }
 
-  handleClick(layerDateEpoch) {
+  updateEpoch(layerDateEpoch) {
     this.setState({
       epochStart: layerDateEpoch - oneDayEpoch,
       epochEnd: layerDateEpoch + oneDayEpoch,
     });
   }
 
-  handleSecond() {
-    this.setState({
-      epochStart: 1508865698.041,
-      epochEnd: 1509038498.041,
-    });
-  }
-
   render() {
-    const { data, mapCenter, epochStart, epochEnd } = this.state;
-    console.log({ epochStart, epochEnd });
+    const { data, mapCenter, epochStart, epochEnd, zoomLevel } = this.state;
     const tileUrlTemplate = `${apiUrl}/users/${userId}/{z}/{x}/{y}.png?epochStart=${epochStart}&epochEnd=${epochEnd}&access_token=${accessToken}&product=NC`;
+
     return (
       <div className="container">
         <Map ref={this.map} center={mapCenter} zoom={zoomLevel}>
@@ -77,19 +66,14 @@ class Maps extends Component {
               />
             </BaseLayer>
             <Overlay checked name="test1">
-              <TileLayer attribution="hello" url={tileUrlTemplate} tms="true" />
-            </Overlay>
-            <Overlay name="test2">
               <TileLayer
-                attribution="hello"
-                url={
-                  'https://api2.terravion.com/users/5bad4dfa-7262-4a0a-b1e5-da30793cec65/{z}/{x}/{y}.png?epochStart=1456200627&epochEnd=1456632627&access_token=2e68cee0-b2fd-4ef5-97f6-8e44afb09ffa&product=NC'
-                }
+                attribution="TerrAvion"
+                url={tileUrlTemplate}
                 tms="true"
               />
             </Overlay>
           </LayersControl>
-          <Data data={data} handleClick={this.handleClick} />
+          <Data data={data} handleClick={this.updateEpoch} />
         </Map>
       </div>
     );

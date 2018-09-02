@@ -1,28 +1,18 @@
-/* body {
-  height: 100%;
-  overflow: auto;
-} */
-.row {
-  max-width: 1000px;
-  width: 700px;
-  margin: 0 auto;
-}
-
-.col-xs-1 {
-  width: 7%;
-}
-.test {
-  width: 1140px;
-  position: absolute;
-  z-index: 9999;
-  bottom: 20px;
-  background: orange;
-}
+/* reuseable */
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.row {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.col-xs-1 {
+  width: 7%;
 }
 
 /* leaflet map width and height */
@@ -40,9 +30,19 @@ body {
   border-right: 0.5px solid gray;
 }
 
-.bull {
+/* data info  */
+
+.dates {
   padding: 10px;
   border: 1px solid;
   margin-right: 5px;
   font-size: 15px;
+  background: orange;
+}
+
+.dataInfo {
+  width: 1140px;
+  position: absolute;
+  z-index: 9999;
+  bottom: 20px;
 }

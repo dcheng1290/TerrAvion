@@ -3,12 +3,12 @@ import moment from 'moment';
 
 const Data = ({ data, handleClick }) => (
   <div className="container">
-    <div className="row test">
+    <div className="row dataInfo">
       {data.map(event => (
         <button
           key={event.ncLayerId}
           onClick={() => handleClick(event.layerDateEpoch)}
-          className="col-xs-1 bull"
+          className="col-xs-1 dates"
           type="button"
         >
           {moment.unix(event.layerDateEpoch).format('MM/DD')}
