@@ -4,7 +4,7 @@ import moment from 'moment';
 const Data = ({ data, handleClick }) => (
   <div className="container">
     <div className="row dataInfo">
-      {data.map(event => (
+      {data.map((event, index) => (
         <button
           key={event.ncLayerId}
           onClick={() => handleClick(event.layerDateEpoch)}

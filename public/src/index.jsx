@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
+import App from './components/App';
 
-ReactDOM.render(
-  <App url="http://localhost:3400/events" author="David" perPage={1} />,
-  document.getElementById('app')
-);
+ReactDOM.render(<App />, document.getElementById('app'));
